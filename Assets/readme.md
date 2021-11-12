@@ -1,0 +1,38 @@
+#game plan
+##lake fishing game
+requirements done:
+water caustics
+water refraction/trans
+
+requirements todo:
+try catch exception
+log to file
+object pooling -> fish
+
+fishing rod mechanics:
+rotate by z axis to dip or pull rod
+button press space to pull
+
+rotate by y to move position in where to fish in the lake
+button input.horizontal
+
+rotate by x to shake left right, maybe not needed
+button enter?
+
+move line forward back
+rotate by z axis
+pivot on the tip of rod
+shift w s 
+
+move the line left and right
+rotate by x axis
+shift a d 
+
+gui score at the top screen
+
+fish mechanics:
+float up down y axis
+move  and rotate randomly after hitting the wall
+
+gets caught by line like a magnet, on collision
+
