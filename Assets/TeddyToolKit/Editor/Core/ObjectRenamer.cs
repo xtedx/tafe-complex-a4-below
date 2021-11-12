@@ -21,6 +21,8 @@ namespace TeddyToolKit.Core.Editor
         private string searchstr = "";
         private string replacestr = "";
 
+        private int charcount;
+
         /// <summary>
         /// add a menu along the File Edit Assets ...
         /// </summary>
@@ -38,6 +40,7 @@ namespace TeddyToolKit.Core.Editor
             RenameSequenceGUI();
             RenameAppendGUI();
             RenameReplaceGUI();
+            RenameDelLastGUI();
         }
 
         private void RenameAppendGUI()
@@ -59,6 +62,28 @@ namespace TeddyToolKit.Core.Editor
             if (GUILayout.Button("Append"))
             {
                 RenameAppend();
+            }
+        }
+        
+        private void RenameDelLastGUI()
+        {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            {
+                // brackets just for code readability
+                charcount = EditorGUILayout.IntField("Last X Char", charcount);
+            }
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            {
+                EditorGUILayout.HelpBox(
+                    "* delete the last x character from the right",
+                    MessageType.Info);
+            }
+            EditorGUILayout.EndVertical();
+
+            if (GUILayout.Button("Del Last X"))
+            {
+                RenameDelLast();
             }
         }
 
@@ -142,6 +167,19 @@ namespace TeddyToolKit.Core.Editor
             foreach (GameObject obj in Selection.objects)
             {
                 obj.name = $"{obj.name}{suffix}";
+            }
+        } 
+        
+        /// <summary>
+        /// Remove last x characters to the selected objects
+        /// </summary>
+        private void RenameDelLast()
+        {
+            foreach (GameObject obj in Selection.objects)
+            {
+                var length = obj.name.Length;
+                var to = length - charcount;
+                obj.name = obj.name.Substring(0,to);
             }
         }
         
