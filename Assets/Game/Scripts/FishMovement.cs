@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;
@@ -21,6 +22,7 @@ public class FishMovement : MonoBehaviour
     private float turnSmoothVelocity; // to hold temp value for angle smoothing
 
     Vector3 currentPosition;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -104,7 +106,9 @@ public class FishMovement : MonoBehaviour
         //hits the lake wall
         if (other.CompareTag("Ground"))
         {
+            GameManager.Instance.logToFile.Log("fish hits the wall");
             getRandomBounceDirection();
+            Debug.Log("this is normal debug log");
         }
         //got caught by fishing line
         else if (other.CompareTag("Player"))
