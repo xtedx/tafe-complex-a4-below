@@ -108,12 +108,12 @@ public class FishMovement : MonoBehaviour
         {
             GameManager.Instance.logToFile.Log("fish hits the wall");
             getRandomBounceDirection();
-            Debug.Log("this is normal debug log");
         }
         //got caught by fishing line
         else if (other.CompareTag("Player"))
         {
-            
+            Debug.Log("Player caught a fish!");
+            GameManager.Instance.CaughtFish(other.gameObject);
         }
     }
 }
