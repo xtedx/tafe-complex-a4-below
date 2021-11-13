@@ -1,5 +1,9 @@
-﻿using TeddyToolKit.Core;
+﻿using System;
+using System.IO;
+using TeddyToolKit.Core;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Game.Scripts
 {
@@ -9,9 +13,16 @@ namespace Game.Scripts
         [SerializeField] public ObjectPool poolFish;
         [SerializeField] public ObjectPool poolShark;
         [SerializeField] public Transform poolParent;
+        [SerializeField] public int sharkCount = 2;
+        [SerializeField] public int fishCount = 8;
+
+        [SerializeField] public GameObject guiCanvas;
         [SerializeField] public int score;
+        [SerializeField] public Text textScore;
+        [SerializeField] public Button buttonReset;
+        [SerializeField] public Button buttonQuit;
 
-
+        
         /// <summary>
         /// take the fish and put in pool with score
         /// </summary>
@@ -34,6 +45,8 @@ namespace Game.Scripts
             {
                 Debug.Log($"Caught mysterious fish {caughtName}");
             }
+
+            UpdateGUI();
         }
 
         /// <summary>
@@ -41,10 +54,44 @@ namespace Game.Scripts
         /// </summary>
         public void ResetGame()
         {
+            var spawnAreaOffset = new Vector3(0, -6, 0);
+            //clear the lake
             foreach (var fish in poolParent.GetComponentsInChildren<Transform>())
             {
                 CaughtFish(fish.gameObject, false);
             }
+            //add all fish from pool
+            for (var i = 0; i < sharkCount; i++)
+            {
+                var f = poolShark.Spawn(poolParent);
+                f.transform.position = (Random.insideUnitSphere * 6) + spawnAreaOffset;
+                Debug.Log($"spawning shark {i}");
+            } 
+            for (var i = 0; i < fishCount; i++)
+            {
+                var f = poolFish.Spawn(poolParent);
+                f.transform.position = (Random.insideUnitSphere * 6) + spawnAreaOffset;
+                Debug.Log($"spawning  fish {i}");
+            } 
+
+            score = 0;
+            UpdateGUI();
+            poolParent.gameObject.SetActive(true);
+        }
+
+        private void UpdateGUI()
+        {
+            textScore.text = score.ToString("0000");
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+
+        private void Start()
+        {
+            guiCanvas.SetActive(true);
         }
     }
 }

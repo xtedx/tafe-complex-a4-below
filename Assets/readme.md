@@ -8,6 +8,8 @@
 ###game stuff done:
 * fish movement
 * rod movement
+* scoring
+* gui~~~~
 ###requirements todo:
 * water refraction/trans
 
