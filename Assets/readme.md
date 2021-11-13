@@ -1,15 +1,15 @@
 #lake fishing game plan
 ###requirements done:
-* water caustics
-* log to file
+* water caustics - water in the lake
+* log to file - logtofile.cs
+* object pooling - game manager -> fish
+* 2 try catch exception - object pooling, log to file
 
 ###game stuff done:
 * fish movement
-
+* rod movement
 ###requirements todo:
 * water refraction/trans
-* try catch exception
-* object pooling -> fish
 
 ###fishing rod mechanics:
 rotate by z axis to dip or pull rod

@@ -1681,7 +1681,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh52866
+  m_Name: pb_Mesh17674
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1918,6 +1918,7 @@ GameObject:
   - component: {fileID: 880911933}
   - component: {fileID: 880911932}
   - component: {fileID: 880911931}
+  - component: {fileID: 880911935}
   m_Layer: 0
   m_Name: Line
   m_TagString: Untagged
@@ -1933,8 +1934,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880911929}
   m_LocalRotation: {x: 0, y: 0, z: 0.9961947, w: 0.08715588}
-  m_LocalPosition: {x: -4, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4, y: 4, z: 0.05}
+  m_LocalScale: {x: 1, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 2027199323}
   m_RootOrder: 1
@@ -1947,10 +1948,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880911929}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1400329274}
 --- !u!33 &880911932
@@ -2702,6 +2703,22 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!54 &880911935
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880911929}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &890644564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3187,7 +3204,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh52780
+  m_Name: pb_Mesh17610
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3434,7 +3451,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh52750
+  m_Name: pb_Mesh17578
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32919,6 +32936,7 @@ MonoBehaviour:
   poolFish: {fileID: 1904380744}
   poolShark: {fileID: 1904380743}
   poolParent: {fileID: 1893515069}
+  score: 0
 --- !u!4 &1904380742
 Transform:
   m_ObjectHideFlags: 0
@@ -32973,6 +32991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2027199323}
+  - component: {fileID: 2027199324}
   m_Layer: 0
   m_Name: Fishing Rod
   m_TagString: Player
@@ -32996,6 +33015,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -100, z: 0}
+--- !u!114 &2027199324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027199322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ac52ddfed04822813e19f60fdbcd90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  RodT: {fileID: 2027199323}
+  LineT: {fileID: 880911930}
 --- !u!1001 &8776089294110992719
 PrefabInstance:
   m_ObjectHideFlags: 0
