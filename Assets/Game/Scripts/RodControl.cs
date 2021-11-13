@@ -43,8 +43,8 @@ namespace Game.Scripts
         public void MoveLine(Vector3 direction)
         {
             //x on x left right
-            //z on z forward back
-            LineT.Rotate(direction.x,0,direction.z);
+            //z on z forward back, inverse sign
+            LineT.Rotate(direction.x,0,direction.z*-1);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Game.Scripts
         {
             //x on y left right
             //z on z up down
-            RodT.Rotate(0, direction.x,direction.z);
+            RodT.Rotate(0, direction.x,direction.z*-1);
         }
     }
 }
