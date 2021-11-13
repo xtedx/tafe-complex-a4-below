@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 722275707}
   m_Layer: 0
   m_Name: Arch
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1921,7 +1921,7 @@ GameObject:
   - component: {fileID: 880911935}
   m_Layer: 0
   m_Name: Line
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33027,7 +33027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ac52ddfed04822813e19f60fdbcd90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 100
   RodT: {fileID: 2027199323}
   LineT: {fileID: 880911930}
 --- !u!1001 &8776089294110992719

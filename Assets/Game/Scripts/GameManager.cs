@@ -23,10 +23,16 @@ namespace Game.Scripts
             score++;
             if (caughtName.StartsWith("Shark"))
             {
+                Debug.Log("Player caught a shark!");
                 poolShark.Despawn(fishGameObject);
             } else if (caughtName.StartsWith("Fish"))
             {
+                Debug.Log("Player caught a fish!");
                 poolFish.Despawn(fishGameObject);
+            }
+            else
+            {
+                Debug.Log($"Caught mysterious fish {caughtName}");
             }
         }
 

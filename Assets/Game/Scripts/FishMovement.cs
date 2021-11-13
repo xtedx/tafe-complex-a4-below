@@ -112,8 +112,7 @@ public class FishMovement : MonoBehaviour
         //got caught by fishing line
         else if (other.CompareTag("Player"))
         {
-            Debug.Log("Player caught a fish!");
-            GameManager.Instance.CaughtFish(other.gameObject);
+            GameManager.Instance.CaughtFish(gameObject);
         }
     }
 }
