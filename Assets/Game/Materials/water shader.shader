@@ -24,6 +24,7 @@ Shader "Custom/water shader"
         
         _WaterFogColor("Water Fog Color", Color) = (0,0,0,0)
         _WaterFogDensity ("Water Fog Density", Range(0,2)) = 0.1
+        _RefractionStrength( "Refraction Strength", Range(0,1)) = 0.1
         //} teddy end
     }
     
@@ -68,6 +69,7 @@ Shader "Custom/water shader"
         float _HeightScale, _HeightScaleModulated;
         float _WaterFogDensity;
         float4 _CameraDepthTexture_TexelSize;
+        float _RefractionStrength;
         //} teddy end
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -83,17 +85,30 @@ Shader "Custom/water shader"
         {
             color.a = 1;
         }
-        
-        float3 ColorBelowWater(float4 screenPos)
-        {
-            float2 uv = screenPos.xy / screenPos.w;
 
+        float GetYAboveWater(float uvy, float camera_x)
+        {
             #if UNITY_UV_STARTS_AT_TOP
                 if(_CameraDepthTexture_TexelSize.x < 0)
                 {
-                    uv.y = 1 - uv.y;
+                    return 1 - uvy;
+                } else
+                {
+                    return uvy;
                 }
+            #else
+                return uvy;      
             #endif
+        }
+        
+        float3 ColorBelowWater(float4 screenPos, float3 tangentSpaceNormal)
+        {
+            float2 uvOffsetReflection = tangentSpaceNormal.xy * _RefractionStrength;
+            uvOffsetReflection *= _CameraDepthTexture_TexelSize.z * abs(_CameraDepthTexture_TexelSize.y);
+            float2 uv = (screenPos.xy + uvOffsetReflection)/ screenPos.w;
+
+            //check if above water
+            uv.y = GetYAboveWater(uv.y, _CameraDepthTexture_TexelSize.x);
             
             //sample depth texture, convert to a linear number space
             float backgroundDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture,uv));
@@ -101,6 +116,13 @@ Shader "Custom/water shader"
             float surfaceDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(screenPos.z);
             //work out the depth from the surface to the objects behind it
             float depthDifference = backgroundDepth - surfaceDepth;
+
+            if(depthDifference < 0)
+            {
+                uv = screenPos.xy /screenPos.w;
+                //check if above water
+                uv.y = GetYAboveWater(uv.y, _CameraDepthTexture_TexelSize.x);
+            }
 
             float3 backgroundColor = tex2D(_WaterBackgroud, uv).rgb;
             float fogFactor = exp2(-_WaterFogDensity * depthDifference);
@@ -188,7 +210,7 @@ Shader "Custom/water shader"
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
 
-            o.Emission = ColorBelowWater(IN.screenPos) * (1 - c.a);
+            o.Emission = ColorBelowWater(IN.screenPos, o.Normal) * (1 - c.a);
             
         }
         

@@ -77,12 +77,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FlowOffset: 0
-    - _FlowStrength: 0
+    - _FlowStrength: 0.01
     - _GlossMapScale: 1
     - _Glossiness: 0.316
     - _GlossyReflections: 1
     - _HeightScale: 6.75
-    - _HeightScaleModulated: 3.07
+    - _HeightScaleModulated: 31.84
     - _Metallic: 0.38
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -92,9 +92,9 @@ Material:
     - _Speed: 0.25
     - _SrcBlend: 1
     - _Tiling: 2.46
-    - _UJump: 0.25
+    - _UJump: 0.24
     - _UVSec: 0
-    - _VJump: 0.23
+    - _VJump: 0.25
     - _WaterFogDensity: 0.2
     - _ZWrite: 1
     m_Colors:
