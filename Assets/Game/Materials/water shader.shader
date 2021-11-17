@@ -86,19 +86,16 @@ Shader "Custom/water shader"
             color.a = 1;
         }
 
-        float GetYAboveWater(float uvy, float camera_x)
+        //for above the water
+        float2 AlignWithGrabTexel(float2 uv)
         {
             #if UNITY_UV_STARTS_AT_TOP
-                if(_CameraDepthTexture_TexelSize.x < 0)
-                {
-                    return 1 - uvy;
-                } else
-                {
-                    return uvy;
-                }
-            #else
-                return uvy;      
+            if (_CameraDepthTexture_TexelSize.x < 0)
+            {
+                uv.y = 1 - uv.y;
+            }
             #endif
+            return (floor(uv * _CameraDepthTexture_TexelSize.zw) + 0.5) * abs(_CameraDepthTexture_TexelSize.xy);
         }
         
         float3 ColorBelowWater(float4 screenPos, float3 tangentSpaceNormal)
@@ -108,7 +105,7 @@ Shader "Custom/water shader"
             float2 uv = (screenPos.xy + uvOffsetReflection)/ screenPos.w;
 
             //check if above water
-            uv.y = GetYAboveWater(uv.y, _CameraDepthTexture_TexelSize.x);
+            uv = AlignWithGrabTexel(uv);
             
             //sample depth texture, convert to a linear number space
             float backgroundDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture,uv));
@@ -116,14 +113,10 @@ Shader "Custom/water shader"
             float surfaceDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(screenPos.z);
             //work out the depth from the surface to the objects behind it
             float depthDifference = backgroundDepth - surfaceDepth;
-
-            if(depthDifference < 0)
-            {
-                uv = screenPos.xy /screenPos.w;
-                //check if above water
-                uv.y = GetYAboveWater(uv.y, _CameraDepthTexture_TexelSize.x);
-            }
-
+            uvOffsetReflection *= saturate(depthDifference);
+            uv = AlignWithGrabTexel((screenPos.xy + uvOffsetReflection) / screenPos.w);
+            backgroundDepth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv));
+            depthDifference = backgroundDepth - surfaceDepth;
             float3 backgroundColor = tex2D(_WaterBackgroud, uv).rgb;
             float fogFactor = exp2(-_WaterFogDensity * depthDifference);
             return lerp(_WaterFogColor, backgroundColor, fogFactor);
@@ -191,8 +184,6 @@ Shader "Custom/water shader"
             float3 uvwA = FlowUVW(IN.uv_MainTex, flowVector, jump,_FlowOffset, _Tiling , time, false);
             float3 uvwB = FlowUVW(IN.uv_MainTex, flowVector, jump, _FlowOffset,  _Tiling , time, true);
 
-            //float3 normalA = UnpackNormal(tex2D(_NormalMap, uvwA.xy)) * uvwA.z;
-            //float3 normalB = UnpackNormal(tex2D(_NormalMap, uvwB.xy)) * uvwB.z;
             float finalHeightScale = flowSample.b * _HeightScaleModulated + _HeightScale;
             float3 dhA = UnpackDerivativeHeight(tex2D(_DerivHeightMap, uvwA.xy)) * (uvwA.z  * finalHeightScale);
             float3 dhB = UnpackDerivativeHeight(tex2D(_DerivHeightMap, uvwB.xy)) * (uvwB.z * finalHeightScale);

@@ -76,29 +76,30 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FlowOffset: 0
+    - _FlowOffset: 0.03
     - _FlowStrength: 0.01
     - _GlossMapScale: 1
-    - _Glossiness: 0.316
+    - _Glossiness: 0.45
     - _GlossyReflections: 1
-    - _HeightScale: 6.75
-    - _HeightScaleModulated: 31.84
-    - _Metallic: 0.38
+    - _HeightScale: 0.06
+    - _HeightScaleModulated: 0.72
+    - _Metallic: 0.05
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RefractionStrength: 0.08
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0.25
     - _SrcBlend: 1
-    - _Tiling: 2.46
+    - _Tiling: 2.5
     - _UJump: 0.24
     - _UVSec: 0
-    - _VJump: 0.25
-    - _WaterFogDensity: 0.2
+    - _VJump: 0.2
+    - _WaterFogDensity: 0.23
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.45191625, b: 0.8396226, a: 0.28235295}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.23529412}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _WaterFogColor: {r: 0, g: 0, b: 0, a: 0}
+    - _WaterFogColor: {r: 0.14150941, g: 0.09283481, b: 0.032707367, a: 0.43137255}
   m_BuildTextureStacks: []
